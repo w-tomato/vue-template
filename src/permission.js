@@ -32,7 +32,8 @@ router.beforeEach(async(to, from, next) => {
       } else {
         try {
           // get user info
-          await store.dispatch('user/getInfo')
+          // 这里暂时注掉了，因为每次请求后台都会校验token，所以这里不需要再每次请求前先获取用户信息了
+          // await store.dispatch('user/getInfo')
 
           next()
         } catch (error) {

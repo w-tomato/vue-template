@@ -1,0 +1,6 @@
+# 关于此文件：https://www.ruanyifeng.com/blog/2017/12/travis_ci_tutorial.html
+language: node_js
+node_js: 10
+script: npm run test
+notifications:
+  email: false

@@ -17,12 +17,12 @@ import Layout from '@/layout'
  * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
  * name:'router-name'             the name is used by <keep-alive> (must set!!!)
  * meta : {
-    roles: ['admin','editor']    control the page roles (you can set multiple roles)
-    title: 'title'               the name show in sidebar and breadcrumb (recommend set)
-    icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
-    breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
-    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
-  }
+ roles: ['admin','editor']    control the page roles (you can set multiple roles)
+ title: 'title'               the name show in sidebar and breadcrumb (recommend set)
+ icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
+ breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
+ activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
+ }
  */
 
 /**
@@ -160,15 +160,15 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/mall',
-    name: 'mall',
+    path: '/product',
+    name: 'product',
     component: Layout,
-    redirect: '/mall/index',
+    redirect: '/product/index',
     children: [{
-      path: '/mall/index',
-      name: 'mall',
-      component: () => import('@/views/mall/index'),
-      meta: { title: 'mall', icon: 'link' }
+      path: '/product/index',
+      name: 'product',
+      component: () => import('@/views/product/index.vue'),
+      meta: { title: 'product', icon: 'link' }
     }]
   },
 
