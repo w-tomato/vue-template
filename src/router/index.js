@@ -5,171 +5,116 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import mall from '@/mall/index.vue'
+
+/* Router Modules */
+// import componentsRouter from './modules/components'
 
 /**
- * Note: sub-menu only appear when route children.length >= 1
- * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
- *
- * hidden: true                   if set true, item will not show in the sidebar(default is false)
- * alwaysShow: true               if set true, will always show the root menu
- *                                if not set alwaysShow, when item has more than one children route,
- *                                it will becomes nested mode, otherwise not show the root menu
- * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
- * name:'router-name'             the name is used by <keep-alive> (must set!!!)
- * meta : {
- roles: ['admin','editor']    control the page roles (you can set multiple roles)
- title: 'title'               the name show in sidebar and breadcrumb (recommend set)
- icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
- breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
- activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
- }
+ * 注意：只有当路由的 children.length >= 1 时，子菜单才会显示
+ * 详细请参阅：https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
+ * hidden: true 如果设置为 true，该项将不会显示在侧边栏中（默认为 false）
+ * alwaysShow: true 如果设置为 true，将始终显示根菜单
+ *                            如果未设置 alwaysShow，当该项有多个子路由时，
+ *                            它将变为嵌套模式，否则不显示根菜单
+ * redirect: noRedirect 如果设置为 noRedirect，将不会在面包屑中重定向
+ * name:'router-name' name 用于 <keep-alive>（必须设置！！！）
+ * meta: {
+ *     roles: ['admin', 'editor'] 控制页面角色（可以设置多个角色）
+ *     title: 'title' 在侧边栏和面包屑中显示的名称（建议设置）
+ *     icon: 'svg-name'/'el-icon-x' 在侧边栏中显示的图标
+ *     noCache: true 如果设置为 true，该页面将不会被缓存（默认为 false）
+ *     affix: true 如果设置为 true，标签将固定在标签视图中
+ *     breadcrumb: false 如果设置为 false，该项将在面包屑中隐藏（默认为 true）
+ *     activeMenu: '/example/list' 如果设置了路径，侧边栏将突出显示设置的路径
+ * }
  */
 
 /**
  * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
+ * 不需要权限要求的基本页面
+ * 所有角色都可以访问
  */
 export const constantRoutes = [
+  {
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/redirect/:path(.*)',
+        component: () => import('@/views/redirect/index')
+      }
+    ]
+  },
   {
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
   {
     path: '/404',
-    component: () => import('@/views/404'),
+    component: () => import('@/views/error-page/404'),
     hidden: true
   },
-
+  {
+    path: '/401',
+    component: () => import('@/views/error-page/401'),
+    hidden: true
+  },
   {
     path: '/',
+    component: mall,
+    redirect: '/ZhaoDongMall',
+    children: [
+      {
+        path: '/ZhaoDongMall',
+        name: 'ZhaoDongMall',
+        component: () => import('@/views/mall/index'),
+        meta: { title: 'ZhaoDongMall', icon: 'dashboard' }
+      }
+    ]
+  }
+]
+
+/**
+ * asyncRoutes
+ * the routes that need to be dynamically loaded based on user roles
+ */
+export const asyncRoutes = [
+  {
+    path: '/dashboard',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/dashboard/index',
     children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
+      path: 'index',
+      name: 'dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: 'Dashboard', icon: 'dashboard', roles: ['admin'] }
     }]
   },
-
+  /** when your routing map is too long, you can split it into small modules **/
+  // componentsRouter,
   {
-    path: '/example',
+    path: '/product',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
+    redirect: '/product/index',
+    children: [{
+      path: 'index',
+      name: 'product',
+      component: () => import('@/views/product/index.vue'),
+      meta: { title: 'product', icon: 'link', roles: ['admin'] }
+    }]
   },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' }
-      }
-    ]
-  },
-
   {
     path: 'external-link',
     component: Layout,
     children: [
       {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        path: 'https://github.com/PanJiaChen/vue-element-admin',
+        meta: { title: 'External Link', icon: 'link', roles: ['admin'] }
       }
     ]
-  },
-  {
-    path: '/product',
-    name: 'product',
-    component: Layout,
-    redirect: '/product/index',
-    children: [{
-      path: '/product/index',
-      name: 'product',
-      component: () => import('@/views/product/index.vue'),
-      meta: { title: 'product', icon: 'link' }
-    }]
   },
 
   // 404 page must be placed at the end !!!

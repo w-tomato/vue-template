@@ -1,8 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <h1>这是后台管理系统主页</h1>
-    <div class="dashboard-text">用户名: {{ name }}</div>
-    <div class="dashboard-text">角色: {{ roles }}</div>
+    <div class="dashboard-text">name: {{ name }}</div>
   </div>
 </template>
 
@@ -10,12 +8,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Dashboard',
-  data() {
-    return {
-      roles: this.$store.getters.roles
-    }
-  },
+  name: 'ZhaoDongMall',
   computed: {
     ...mapGetters([
       'name'
