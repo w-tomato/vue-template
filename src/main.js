@@ -14,6 +14,7 @@ import router from './router/index'
 
 import '@/icons' // icon
 import '@/permission' // permission control
+import * as EventNames from './constants/busEventNames'
 
 /**
  * If you don't want to use mock-server
@@ -39,5 +40,11 @@ new Vue({
   el: '#app',
   router,
   store,
+  beforeCreate() {
+    // 全局事件总线
+    Vue.prototype.$bus = this
+    // 全局事件名称枚举，新增事件名称时，需要在此js内添加枚举，以防止冲突
+    Vue.prototype.$eventNames = EventNames
+  },
   render: h => h(App)
 })

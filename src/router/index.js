@@ -72,6 +72,31 @@ export const constantRoutes = [
         name: 'ZhaoDongMall',
         component: () => import('@/views/mall/index'),
         meta: { title: 'ZhaoDongMall', icon: 'dashboard' }
+      },
+      {
+        path: '/productDetail/:id',
+        name: 'productDetail',
+        component: () => import('@/views/mall/product-detail/index'),
+        meta: { title: 'productDetail', icon: 'dashboard' }
+      },
+      {
+        path: '/userHome',
+        name: 'userHome',
+        component: () => import('@/views/mall/user-home/index'),
+        meta: { title: 'userHome', icon: 'dashboard' }
+      }
+    ]
+  },
+  {
+    path: '/cart',
+    component: mall,
+    redirect: '/cart/index',
+    children: [
+      {
+        path: '/cart/index',
+        name: 'cart',
+        component: () => import('@/views/mall/shopping-cart/index'),
+        meta: { title: 'cart', icon: 'dashboard' }
       }
     ]
   }

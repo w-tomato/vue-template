@@ -1,8 +1,16 @@
 <template>
   <div class="navbar">
-    <breadcrumb class="breadcrumb-container" />
+    <img
+      style="float: left; object-fit: contain; width: 50px; height: 50px"
+      :src="require('@/assets/images/home.jpg')"
+      alt=""
+      @click="goToHome"
+    >
 
     <div class="right-menu">
+      <el-button icon="el-icon-shopping-cart-full" style="float: left; margin: 5px; border: 0" @click="goToCart">
+        购物车
+      </el-button>
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
@@ -12,6 +20,11 @@
           <router-link to="/">
             <el-dropdown-item>
               商城首页
+            </el-dropdown-item>
+          </router-link>
+          <router-link to="/userHome">
+            <el-dropdown-item>
+              个人主页
             </el-dropdown-item>
           </router-link>
           <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
@@ -36,12 +49,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
 
 export default {
-  components: {
-    Breadcrumb
-  },
+  components: {},
   computed: {
     ...mapGetters([
       'sidebar',
@@ -52,6 +62,12 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    goToCart() {
+      this.$router.push('/cart')
+    },
+    goToHome() {
+      this.$router.push('/')
     }
   }
 }
