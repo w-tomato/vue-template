@@ -43,7 +43,11 @@
             <div class="product-info">
               <h3>{{ product.name }}</h3>
               <p>{{ product.intro }}</p>
-              <el-button @click="addToCart(product)">加入购物车</el-button>
+              <el-row>
+                <p style="float: left">分类: {{ product.categoryName }}</p>
+                <el-button style="float: right" @click="addToCart(product)">加入购物车</el-button>
+              </el-row>
+
             </div>
           </el-card>
         </el-col>

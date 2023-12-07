@@ -5,8 +5,10 @@
     </div>
     <div class="product-info">
       <h2 class="product-title">{{ product.name }}</h2>
-      <p class="product-price">价格: {{ product.price }}</p>
       <p class="product-description">{{ product.intro }}</p>
+      <p class="product-price">价格: {{ product.price }}</p>
+      <p class="product-price">分类: {{ product.categoryName }}</p>
+      <p class="product-price">库存: {{ product.inventory }}</p>
       <el-button class="add-to-cart-button" type="primary" @click="addToCart">加入购物车</el-button>
     </div>
   </div>
@@ -19,12 +21,7 @@ import { getDetail } from '@/api/product/product'
 export default {
   data() {
     return {
-      product: {
-        name: '商品名称',
-        price: 99,
-        intro: '商品描述',
-        coverImage: '商品图片链接'
-      }
+      product: {}
     }
   },
   mounted() {

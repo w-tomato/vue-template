@@ -27,6 +27,11 @@
               个人主页
             </el-dropdown-item>
           </router-link>
+          <router-link to="/order">
+            <el-dropdown-item>
+              我的订单
+            </el-dropdown-item>
+          </router-link>
           <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
             <el-dropdown-item>Github</el-dropdown-item>
           </a>

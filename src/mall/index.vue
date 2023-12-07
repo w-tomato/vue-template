@@ -90,4 +90,14 @@ export default {
 .mobile .fixed-header {
   width: 100%;
 }
+
+.main-container {
+  position: relative;
+  height: 100%;
+  width: 1400px;
+  margin-top: 10px;
+  margin-left: 55px;
+  margin-right: 55px;
+  z-index: 1;
+}
 </style>

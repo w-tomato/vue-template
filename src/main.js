@@ -15,6 +15,7 @@ import router from './router/index'
 import '@/icons' // icon
 import '@/permission' // permission control
 import * as EventNames from './constants/busEventNames'
+import moment from 'moment'
 
 /**
  * If you don't want to use mock-server
@@ -35,6 +36,12 @@ Vue.use(ElementUI, { locale })
 // Vue.use(ElementUI)
 
 Vue.config.productionTip = false
+
+Vue.filter('formatStandardTime', function(value) {
+  if (value) {
+    return moment(value).format('YYYY-MM-DD HH:mm:ss')
+  }
+})
 
 new Vue({
   el: '#app',

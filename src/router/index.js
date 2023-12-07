@@ -66,6 +66,7 @@ export const constantRoutes = [
     path: '/',
     component: mall,
     redirect: '/ZhaoDongMall',
+    hidden: true,
     children: [
       {
         path: '/ZhaoDongMall',
@@ -84,16 +85,15 @@ export const constantRoutes = [
         name: 'userHome',
         component: () => import('@/views/mall/user-home/index'),
         meta: { title: 'userHome', icon: 'dashboard' }
-      }
-    ]
-  },
-  {
-    path: '/cart',
-    component: mall,
-    redirect: '/cart/index',
-    children: [
+      },
       {
-        path: '/cart/index',
+        path: '/order',
+        name: 'order',
+        component: () => import('@/views/mall/order/index'),
+        meta: { title: 'order', icon: 'dashboard' }
+      },
+      {
+        path: '/cart',
         name: 'cart',
         component: () => import('@/views/mall/shopping-cart/index'),
         meta: { title: 'cart', icon: 'dashboard' }
@@ -131,17 +131,6 @@ export const asyncRoutes = [
       meta: { title: 'product', icon: 'link', roles: ['admin'] }
     }]
   },
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://github.com/PanJiaChen/vue-element-admin',
-        meta: { title: 'External Link', icon: 'link', roles: ['admin'] }
-      }
-    ]
-  },
-
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

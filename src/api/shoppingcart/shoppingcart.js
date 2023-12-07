@@ -32,3 +32,11 @@ export function updateCart(data) {
     data: data
   })
 }
+
+export function submitCart(data) {
+  return request({
+    url: '/shoppingCart/submit',
+    method: 'post',
+    data: data
+  })
+}
